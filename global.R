@@ -1,6 +1,6 @@
 #构建基于Spark的推荐引擎
 
-#library(sparklyr)
+# library(sparklyr)
 library(dplyr)
 library(RMySQL)
 library(stringr)
@@ -18,8 +18,9 @@ library(REmap)
 # 2.clearn cache
 # sc%>%spark_session()%>%invoke("catalog")%>%invoke("clearCache")
 
-#save to spark
+#save to spark保存到spark
 #S_rawdata<-copy_to(sc,rawdata)
+
 # qu qian 3 lie
 # S_rawdata<-select(S_rawdata,userId,itemId,rating)
 # explicit_model<-ml_als_factorization(S_rawdata,rating_col = "rating",user_col = "userId",item_col = "itemId")
@@ -27,21 +28,25 @@ library(REmap)
 # 
 # predictions<-explicit_model$.jobj %>% invoke("transform",spark_dataframe(S_rawdata_train))%>%collect()
 # recommend<-ml_recommend(explicit_model,type = c("items","users"),n=5)
-
 #数据处理
 #E:\\program\\R\\shiny\\base
-recommend<-read.csv("data/recommend.csv")#根据userID提取推荐的itemID
-userdata<-read.csv("data/userdata.csv",header = TRUE,quote="",encoding = "UTF-8")#根据itemID选择图片名
+
+# 一系列变量的赋值
+recommend<-read.csv("data/recommend.csv") #根据userID提取推荐的itemID
+userdata<-read.csv("data/userdata.csv",header = TRUE,quote="",encoding = "UTF-8") #根据itemID选择图片名
 all_item<-read.csv("data/all_item.csv",header = TRUE,encoding = "ANSI")
 heapdata3<-read.csv("data/heapdata3.csv",header = TRUE)
 class_names<-all_item$course_name
 userdata_item<-userdata%>%select(X.itemid.)
 userdata_item<-as.data.frame(table(userdata_item$X.itemid.))
 userdata_item_freq<-(userdata_item%>%arrange(desc(Freq)))[1:60,1]
+
 #data<-data[,-1]
 #userID=108534
 #picture_itemid<-recommend %>% filter(userid==userID)%>%select(itemid)
+
 picture_itemid<-as.list(userdata_item_freq)
+
 # picture_name<-userdata %>% filter(X.itemid.==picture_itemid$itemid)%>%select(X.Var1.)
 # picture_name<-as.vector(unique(picture_name$X.Var1.))
 # 
@@ -52,7 +57,7 @@ Logged = FALSE;
 # my_username <- "test"
 # my_password <- "test"
 
-con<-dbConnect(MySQL(),host='localhost',port=3306,dbname="elearn",user="root",password="1234")
+con<-dbConnect(MySQL(),host='localhost',port=3306,dbname="elearn",user="root",password="root")
 
 ui1 <- function(){
   tagList(
@@ -62,7 +67,8 @@ ui1 <- function(){
                   br(),actionButton("Login", "Log in")))#,
     #tags$style(type="text/css", "#login {font-size:10px;   text-align: left;position:absolute;top: 40%;left: 50%;margin-top: -100px;margin-left: -150px;}")
   )}
-#分类
+  
+# 分类
 categoryui<-function(x){
   fluidRow(
     column(12,id="columns",
@@ -88,6 +94,7 @@ categoryui<-function(x){
 ui2 <- function(){tagList(tabPanel("Test"))}
 ui = (htmlOutput("page"))
 
+# 在DB-users表中查询用户名和密码
 checkpassword <- function(id,pass){
   passwords<-dbGetQuery(con,paste("select password from users where userid=",paste0("'",id,"'")))
   if (is.na(passwords[1,1])){
@@ -111,7 +118,9 @@ intro<-function(i){
 #分词
 library(jiebaR)
 library(wordcloud2)
+# 分词规则
 engine<-worker(user = "data/jieba.utf8",stop_word="data/stop_words.utf8")
+# 加载课程名数据
 words<-userdata$X.Var1.
 words<-as.character(words)
 fen<-segment(words,engine)

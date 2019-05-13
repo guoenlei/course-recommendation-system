@@ -10,3 +10,38 @@
 个性化推荐算法主要是应用spark ALS算计进行推荐。
 ## 热点分析
 热点分析包括两点：热词分析和地理热图分析。
+
+-------------------------------使用方法：-------------------------------
+-----------查询已安装的包-----------
+search()
+-----------安装各种包-----------
+install.packages("各种R·包")
+------------路径-----------
+getwd()
+setwd("C:\\Users\\guoen\\Desktop\\Rworkspace")
+------------装载安装好的包(保证任意一个都不能有问题)----------
+library("shiny")
+library("shinydashboard")
+library("shinyBS")
+library("shinyjs")
+library("htmltools")
+library("markdown")
+library("dplyr")
+library("stringr")
+library("RMySQL")
+library(jiebaR)
+library(wordcloud2)
+library("REmap")    	还需要依赖：install.packages("devtools")    library("devtools")    install_github('lchiffon/REmap')
+-------------运行程序--------------
+library("shiny")
+runApp("RecommendationSystem-master")
+-------------登录login--------------需要先在MySQL数据库中创建elearn库，users表(userid,password)
+用户id：104126
+密码：12345
+
+--------------------------调试过程中可能遇到的问题------------------------
+问题：不断开启APP，连续开启了16个数据库连接，超过数据库最大连接数
+Error in .local(drv, ...) : 
+  Cannot allocate a new connection: 16 connections already opened
+解决：断开所有MySQL数据库连接
+lapply(dbListConnections(MySQL()), dbDisconnect)

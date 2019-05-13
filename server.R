@@ -1,14 +1,14 @@
-#服务器端 userID=12http://spark.apache.org/
+# 服务器端 userID=12 http://spark.apache.org/
 library(shiny)
 Logged <-  FALSE
 shinyServer(
   function(input,output){
-    #source('login.R')
+    # source('login.R')
    #userId=12
    output$titles<-renderUI({
      fluidRow(
        column(12,id="columns",
-              lapply(picture_itemid,function(i){#itemtemp数据类型
+              lapply(picture_itemid,function(i){ # itemtemp数据类型
                 a(box(width=NULL,
                       title = HTML(paste0("<div class='image-wrap'><img src='./images/all/",
                                           i,".jpg",#recipe.df$recipe.link ==
@@ -20,13 +20,13 @@ shinyServer(
 
                 )#box
                 , href= as.character((all_item%>%filter(itemid==i)%>%select(course_link))$course_link[1]),target="view_window")#a
-              })#lapply
+              })# lapply
               
               )# colum
      )# fluidrow
    }
    ) # output$tiles<-renderUI
-   #登陆界面
+   # 登陆界面
    USER <- reactiveValues(Logged = Logged)
    
    observe({ 
@@ -65,7 +65,7 @@ shinyServer(
        })
      }#if
    })
-   #category
+   # category课程类别
    output$office<-renderUI({
      itemid2<-all_item%>%filter(category=="office")%>%select(itemid)
      itemid2<-as.list(itemid2$itemid)
@@ -125,7 +125,7 @@ shinyServer(
      item<-all_item$itemid[item]
      categoryui(item)
    })
-   #词云
+   # 词云
    output$wordcloud2<-renderWordcloud2({
      wordcloud2(fre[1:100,])
    })

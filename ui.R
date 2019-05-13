@@ -1,15 +1,17 @@
-#用户界面 端http://shiny.rstudio.com/articles/css.html
+# 用户界面 端http://shiny.rstudio.com/articles/css.html
 library(shiny)
 library(shinydashboard)
 library(shinyBS)
 library(htmltools)
-#library(shinyjs)
-#library(markdown)
+# library(shinyjs)
+# library(markdown)
 
 dashboardPage(
-  dashboardHeader(title = "个性化推荐系统"
-                  ),#dashboardHeader
+  dashboardHeader(title = "个性化课程推荐系统"
+                  ),# dashboardHeader
+  # 侧边栏
   dashboardSidebar(
+  # 加载各种脚本文件
     includeCSS("www/styles.css"),
     includeScript("www/d3.v3.min.js"),
     includeScript("www/d3-tip.js"),
@@ -18,11 +20,12 @@ dashboardPage(
     
     sidebarUserPanel("暮色",
                      subtitle = a(href="#",icon("circle",class="text-success"),"online"),
-                     image = "user2-160x160.jpg"),
+                     image = "dist/img/user7-128x128.jpg"), #表示头像的图像
     sidebarSearchForm(textId="searchText", buttonId="searchButton", icon = icon("search")),
     sidebarMenu(id="tabs",
-      menuItem("主页", icon = icon("calendar"), tabName = "widgets"),
-      menuItem("搜索", icon = icon("calendar"), tabName = "searchresult"),
+	  # 表示菜单的图像（icon）
+      menuItem("首页", icon = icon("calendar"), tabName = "widgets"),
+      menuItem("搜索", icon = icon("search"), tabName = "searchresult"),
       menuItem("分类", icon = icon("th"), tabName = "category",
                menuSubItem("办公",tabName="office",icon = icon("briefcase")),
                menuSubItem("考试",tabName="exam",icon = icon("graduation-cap")),
@@ -40,19 +43,19 @@ dashboardPage(
                ),
       menuItem("login", tabName = "login",
                icon = icon("user-circle")),
-      menuItem("热点分析", icon = icon("fire"), tabName = "hot"),
+      menuItem("Hotspot Analysis", icon = icon("fire"), tabName = "hot"),
+	  menuItem("MOOC Data Analysis",icon = icon("table"),tabName = "analysis"),
       menuItem("About", tabName = "about",
                icon = icon("info-circle", lib="font-awesome"))
     )
-    ),#dashboardSidebar
- 
+    ),# dashboardSidebar
+	# 身体
    dashboardBody(
      tabItems(
        tabItem(tabName="widgets",
                uiOutput("titles")
        ),
        tabItem(tabName = "about",
-               #includeHTML("www/ID_20180508003716_1741242.html")
                box(width = 12,
                    includeHTML("www/about.html")
                )
@@ -105,11 +108,28 @@ dashboardPage(
                h2("搜索热词"),
                wordcloud2Output("wordcloud2"),
                h2("地理热图"),
-               #includeHTML("www/Rtmpm6na99/ID_20180508003716_1741242.html")
-               div(img(src="hotmap.png",class='hot'))
+               div(img(src="hotmap.png",class='hot')),
+			   h2("课程名热度词云"),
+			   div(img(src="pythonDataAnalysis/1.png",class="hot")),
+			   h2("大学开课数"),
+			   div(img(src="pythonDataAnalysis/2.jpg",class="hot")),
+			   h2("课程被选人数"),
+			   div(img(src="pythonDataAnalysis/3.jpg",class="hot")),
+			   h2("课程分类比例"),
+			   div(img(src="pythonDataAnalysis/4.jpg",class="hot"))
        ),
+	   #tabItem(tabName = "analysis",
+			   #h2("课程名热度词云"),
+			   #div(img(src="pythonDataAnalysis/1.png",class="image1"))
+			   #h2("大学开课数"),
+			   #div(img(src="pythonDataAnalysis/2.jpg",class="image2")),
+			   #h2("课程被选人数"),
+			   #div(img(src="pythonDataAnalysis/3.jpg",class="image3")),
+			   #h2("课程分类比例"),
+			   #div(img(src="pythonDataAnalysis/4.jpg",class="image4"))
+	   #),
        tabItem(tabName = "searchresult",uiOutput("searchresult"))
-       )#tabItems
+       )# tabItems
      )
    )
-#如果图片在本地，则需要放在www的文件夹
+# 如果图片在本地，则需要放在www的文件夹 且图片名不能是中文
