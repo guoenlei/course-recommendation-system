@@ -65,6 +65,11 @@ runApp("RecommendationSystem-master")
 
 密码：12345
 
+数据库中能查到这条记录，在APP中就可以用这个用户名密码登录了。
+
+问我这个id和pd哪来的？在Rworkspace\RecommendationSystem-master\data\recommend.csv这个文件下，第二个字段对应id，密码自己随意写。
+
+
 ## -------------------------调试过程中可能遇到的问题------------------------
 问题：不断开启APP，连续开启了16个数据库连接，超过数据库最大连接数
 
