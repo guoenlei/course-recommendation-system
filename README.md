@@ -11,16 +11,15 @@
 ## 热点分析
 热点分析包括两点：热词分析和地理热图分析。
 
-## -------------------------------使用方法：-------------------------------
-## -----------查询已安装的包-----------
+## -------------------------------使用方法-------------------------------
+## -----------查询已安装的R包-----------
 search()
 
 ## -----------安装各种包-----------
-install.packages("各种R·包")
+install.packages("各种R包")，例如install.packages("shiny")
 
-## ------------路径-----------
-getwd()
-setwd("C:\\Users\\guoen\\Desktop\\Rworkspace")
+（linux比windows安装R包复杂，win几乎是一键完成）
+
 
 ## ------------装载安装好的包(保证任意一个都不能有问题)----------
 library("shiny")
@@ -30,20 +29,36 @@ library("shinydashboard")
 library("shinyBS")
 
 library("shinyjs")
+
 library("htmltools")
+
 library("markdown")
+
 library("dplyr")
+
 library("stringr")
+
 library("RMySQL")
+
 library(jiebaR)
+
 library(wordcloud2)
-library("REmap")    	还需要依赖：install.packages("devtools")    library("devtools")    install_github('lchiffon/REmap')
+
+library("REmap")
+
+REmap还需要依赖：install.packages("devtools")    library("devtools")    install_github('lchiffon/REmap')
+
+## ------------路径-----------
+查看当前路径：getwd()
+设置路径：setwd("C:\\Users\\guoen\\Desktop\\Rworkspace")
+
+setwd到你克隆下来的项目的父目录，例如我的Rworkspace下面就是我clone下来的项目了。
 
 ## -------------运行程序--------------
 library("shiny")
 runApp("RecommendationSystem-master")
 
-## -------------登录login--------------需要先在MySQL数据库中创建elearn库，users表(userid,password)
+## -------------登录login--------------需要先在MySQL数据库中创建elearn数据库，users表(userid,password)
 用户id：104126
 密码：12345
 
