@@ -50,21 +50,25 @@ REmap还需要依赖：install.packages("devtools")    library("devtools")    in
 
 ## ------------路径-----------
 查看当前路径：getwd()
+
 设置路径：setwd("C:\\Users\\guoen\\Desktop\\Rworkspace")
 
 setwd到你克隆下来的项目的父目录，例如我的Rworkspace下面就是我clone下来的项目了。
 
 ## -------------运行程序--------------
 library("shiny")
+
 runApp("RecommendationSystem-master")
 
 ## -------------登录login--------------需要先在MySQL数据库中创建elearn数据库，users表(userid,password)
 用户id：104126
+
 密码：12345
 
 ## -------------------------调试过程中可能遇到的问题------------------------
 问题：不断开启APP，连续开启了16个数据库连接，超过数据库最大连接数
 Error in .local(drv, ...) : 
   Cannot allocate a new connection: 16 connections already opened
+  
 解决：断开所有MySQL数据库连接
 lapply(dbListConnections(MySQL()), dbDisconnect)
