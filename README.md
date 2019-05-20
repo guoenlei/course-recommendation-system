@@ -67,8 +67,11 @@ runApp("RecommendationSystem-master")
 
 ## -------------------------调试过程中可能遇到的问题------------------------
 问题：不断开启APP，连续开启了16个数据库连接，超过数据库最大连接数
+
 Error in .local(drv, ...) : 
+
   Cannot allocate a new connection: 16 connections already opened
   
 解决：断开所有MySQL数据库连接
+
 lapply(dbListConnections(MySQL()), dbDisconnect)
